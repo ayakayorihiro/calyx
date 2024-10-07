@@ -13,6 +13,11 @@ comb primitive std_wire<"share"=1>[WIDTH](@data in: WIDTH) -> (out: WIDTH) {
     assign out = in;
 }
 
+/// Combinational wire to forward values
+primitive std_protected_wire[WIDTH](@data in: WIDTH) -> (out: WIDTH) {
+    assign out = in;
+}
+
 /// Add two numbers.
 comb primitive std_add<"share"=1>[WIDTH](@data left: WIDTH, @data right: WIDTH) -> (out: WIDTH) {
   assign out = left + right;

@@ -136,6 +136,10 @@ impl Visitor for DeadCellRemoval {
                 .filter(|c| {
                     let cell = c.borrow();
                     cell.attributes.get(ir::BoolAttr::External).is_some()
+                        || cell
+                            .attributes
+                            .get(ir::BoolAttr::Protected)
+                            .is_some()
                         || cell.is_reference()
                 })
                 .map(|c| c.borrow().name()),
@@ -189,6 +193,7 @@ impl Visitor for DeadCellRemoval {
             // Remove unused cells
             let removed = comp.cells.retain(|c| {
                 let cell = c.borrow();
+                println!("Removed cell: {}", cell.name());
                 self.all_reads.contains(&cell.name())
                     || wire_reads.contains(&cell.name())
             });
